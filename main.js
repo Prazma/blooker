@@ -518,4 +518,4 @@ $(window).blur(function() {
 //Assumes lo and hi are integers and lo is lower than hi.
 function getRandBetween(lo, hi) {
  return parseInt(Math.floor(Math.random()*(hi-lo+1))+lo, 10);
-}
+});
