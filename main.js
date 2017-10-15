@@ -1,8 +1,3 @@
-/**
- * Notes:
- * - Coordinates are specified as (X, Y, Z) where X and Z are horizontal and Y
- *   is vertical
- */
 
 var map = [ // 1  2  3  4  5  6  7  8  9
            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,], // 0
@@ -37,13 +32,17 @@ var finder = new PF.AStarFinder({ // Defaults to Manhattan heuristic
 	allowDiagonal: true,
 }), grid = new PF.Grid(mapW, mapH, map);
 */
-	function start() {
+
+// Initialize and run on document ready
+$(document).ready(function() {
+	$('body').append('<div id="intro">Click to start</div>');
+	$('#intro').css({width: WIDTH, height: HEIGHT}).one('click', function(e) {
 		e.preventDefault();
-		document.getElementById("start").style.display = "none";
+		$(this).fadeOut();
 		init();
 		setInterval(drawRadar, 1000);
 		animate();
-	}
+	});
 	/*
 	new t.ColladaLoader().load('models/Yoshi/Yoshi.dae', function(collada) {
 		model = collada.scene;
@@ -53,6 +52,7 @@ var finder = new PF.AStarFinder({ // Defaults to Manhattan heuristic
 		scene.add(model);
 	});
 	*/
+});
 
 // Setup
 function init() {
@@ -101,7 +101,7 @@ function init() {
 	// Display HUD
 	$('body').append('<canvas id="radar" width="200" height="200"></canvas>');
 	$('body').append('<div id="hud"><p>Health: <span id="health">100</span><br />Score: <span id="score">0</span></p></div>');
-	$('body').append('<div id="credits"><p>Blooker v.1.0 beta</p><p>WASD: MOVE | CLICK: SHOOT | MOUSE POINTER: LOOK AROUND</p></div>');
+	$('body').append('<div id="credits"><p>Created by <a href="http://www.isaacsukin.com/">Isaac Sukin</a> using <a href="http://mrdoob.github.com/three.js/">Three.js</a><br />WASD to move, mouse to look, click to shoot</p></div>');
 	
 	// Set up "hurt" flash
 	$('body').append('<div id="hurt"></div>');
@@ -243,18 +243,19 @@ function render() {
 
 	renderer.render(scene, cam); // Repaint
 	
+	// Death
 	if (health <= 0) {
 		runAnim = false;
 		$(renderer.domElement).fadeOut();
 		$('#radar, #hud, #credits').fadeOut();
-    document.getElementById("retry").style.display = "block";
-  }
-  function startas() {
+		$('#intro').fadeIn();
+		$('#intro').html('Ouch! Click to restart...');
+		$('#intro').one('click', function() {
 			location = location;
 			/*
 			$(renderer.domElement).fadeIn();
 			$('#radar, #hud, #credits').fadeIn();
-      document.getElementById("retry").style.display = "none";
+			$(this).fadeOut();
 			runAnim = true;
 			animate();
 			health = 100;
@@ -265,6 +266,8 @@ function render() {
 			cam.translateX(-cam.position.x);
 			cam.translateZ(-cam.position.z);
 			*/
+		});
+	}
 }
 
 // Set up the objects in the world
@@ -281,8 +284,8 @@ function setupScene() {
 	// Geometry: walls
 	var cube = new t.CubeGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE);
 	var materials = [
-	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.png')}),
-	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.png')}),
+	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.jpg')}),
+	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.jpg')}),
 	                 new t.MeshLambertMaterial({color: 0xFBEBCD}),
 	                 ];
 	for (var i = 0; i < mapW; i++) {
@@ -324,7 +327,7 @@ function setupAI() {
 
 function addAI() {
 	var c = getMapSector(cam.position);
-	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/faceRender.png')});
+	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/face.png')});
 	var o = new t.Mesh(aiGeo, aiMaterial);
 	do {
 		var x = getRandBetween(0, mapW-1);
@@ -503,7 +506,7 @@ $(window).resize(function() {
 	if (renderer) {
 		renderer.setSize(WIDTH, HEIGHT);
 	}
-	$('#hurt').css({width: WIDTH, height: HEIGHT,});
+	$('#intro, #hurt').css({width: WIDTH, height: HEIGHT,});
 });
 
 // Stop moving around when the window is unfocused (keeps my sanity!)
