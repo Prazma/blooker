@@ -53,7 +53,6 @@ var finder = new PF.AStarFinder({ // Defaults to Manhattan heuristic
 		scene.add(model);
 	});
 	*/
-});
 
 // Setup
 function init() {
