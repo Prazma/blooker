@@ -153,7 +153,11 @@
 			function saveTo(mode) {
 				if( mode == "local" ) {
 					if( localStorage.usernameRecon ) {
-						start();
+						e.preventDefault();
+						document.getElementById("start").style.display = "none";
+						init();
+						setInterval(drawRadar, 1000);
+						animate();
 					} else {
 						document.getElementById("pie2").style.display = "none";
 						document.getElementById("pie3").style.display = "block";
