@@ -141,5 +141,30 @@
 			<span style="color: #fff; font-family: monospace;">do not make your nickname your real name</span>
 		</div>
 	</div>
+	<script>
+		var clicky = new Audio("https://prazma.github.io/mmofps/assets/click.mp3");
+			$("button").click(function(){
+				clicky.play();
+			});
+			function nxtdeathMatch() {
+				document.getElementById("pie1").style.display = "none";
+				document.getElementById("pie2").style.display = "block";
+			}
+			function saveTo(mode) {
+				if( mode == "local" ) {
+					if( localStorage.usernameRecon ) {
+						start();
+					} else {
+						document.getElementById("pie2").style.display = "none";
+						document.getElementById("pie3").style.display = "block";
+					}
+				} else {
+					document.getElementById("serverStats").innerHTML = "could not find any server near you";
+				}
+			}
+			function setAvatar() {
+				start();
+			}
+	</script>
 </body>
 </html>
