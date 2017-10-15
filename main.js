@@ -101,7 +101,7 @@ function init() {
 	// Display HUD
 	$('body').append('<canvas id="radar" width="200" height="200"></canvas>');
 	$('body').append('<div id="hud"><p>Health: <span id="health">100</span><br />Score: <span id="score">0</span></p></div>');
-	$('body').append('<div id="credits"><p>Created by <a href="http://www.isaacsukin.com/">Isaac Sukin</a> using <a href="http://mrdoob.github.com/three.js/">Three.js</a><br />WASD to move, mouse to look, click to shoot</p></div>');
+	$('body').append('<div id="credits"><p>Brooker v.1.0 alpha</p><p>WASD: MOVE | MOUSE POINTER: AIM/SHOOT</p></div>');
 	
 	// Set up "hurt" flash
 	$('body').append('<div id="hurt"></div>');
@@ -284,8 +284,8 @@ function setupScene() {
 	// Geometry: walls
 	var cube = new t.CubeGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE);
 	var materials = [
-	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.jpg')}),
-	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.jpg')}),
+	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.png')}),
+	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.png')}),
 	                 new t.MeshLambertMaterial({color: 0xFBEBCD}),
 	                 ];
 	for (var i = 0; i < mapW; i++) {
@@ -327,7 +327,7 @@ function setupAI() {
 
 function addAI() {
 	var c = getMapSector(cam.position);
-	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/face.png')});
+	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/faceRender.png')});
 	var o = new t.Mesh(aiGeo, aiMaterial);
 	do {
 		var x = getRandBetween(0, mapW-1);
