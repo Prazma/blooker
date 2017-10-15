@@ -282,8 +282,8 @@ function setupScene() {
 	// Geometry: walls
 	var cube = new t.CubeGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE);
 	var materials = [
-	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.jpg')}),
-	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.jpg')}),
+	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.png')}),
+	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.png')}),
 	                 new t.MeshLambertMaterial({color: 0xFBEBCD}),
 	                 ];
 	for (var i = 0; i < mapW; i++) {
@@ -325,7 +325,7 @@ function setupAI() {
 
 function addAI() {
 	var c = getMapSector(cam.position);
-	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/face.png')});
+	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/faceRender.png')});
 	var o = new t.Mesh(aiGeo, aiMaterial);
 	do {
 		var x = getRandBetween(0, mapW-1);
@@ -520,26 +520,3 @@ $(window).blur(function() {
 function getRandBetween(lo, hi) {
  return parseInt(Math.floor(Math.random()*(hi-lo+1))+lo, 10);
 }
-var clicky = new Audio("https://prazma.github.io/mmofps/assets/click.mp3");
-			$("button").click(function(){
-				clicky.play();
-			});
-			function nxtdeathMatch() {
-				document.getElementById("pie1").style.display = "none";
-				document.getElementById("pie2").style.display = "block";
-			}
-			function saveTo(mode) {
-				if( mode == "local" ) {
-					if( localStorage.usernameRecon ) {
-            start();
-					} else {
-						document.getElementById("pie2").style.display = "none";
-						document.getElementById("pie3").style.display = "block";
-					}
-				} else {
-					document.getElementById("serverStats").innerHTML = "could not find any server near you";
-				}
-			}
-			function setAvatar() {
-				start();
-			}
